@@ -6,6 +6,7 @@ import re
 ###########################
 ########HELLO THERE########
 ###########################
+
 # try:
 # 	tokenfile=open('git/parser/input.data','r')
 # except FileNotFoundError:
@@ -13,17 +14,23 @@ import re
 # 	quit()
 # try:
 # 	tokenstate=tokenfile.readlines()
-# 	token=tokenstate[0][:-1]
-# 	group=tokenstate[1]
+# 	token=tokenstate[0][:-1]####################### 1st line-token
+# 	group=tokenstate[1]############################ 2nd line-group id
 # except:
 # 	print('ERR320[DataParseFromFileError]')
 # 	quit()
+
 token=input('VK token:')
 group=int(input('Group ID:'))
 f=open(input('File name:'),'w')
+
+# token='tokenplace'
+# group=idplace
+# f=open('filenameplace','w')
+
 session = vk.Session(access_token=token)
-api = vk.API(session, v='5.8', lang='ru', timeout=75)
-print('Succesful start...')
+api = vk.API(session, v='5.8', lang='en', timeout=75)
+print('Successful start...')
 outer=''
 off=0
 div=r'<div class="m"><a href="#link"><img src="#avatar" class="i"></a><div class="s"><div class="t"><text  clickabil albums="#albcount" onclick="k(this)">FriendC: @##1    AlbumC: @##2 AM17PC: @##3 SavedPC: @##4</text> ........................................................................<a href="@link">GO</a></div></div><diva hidden="true">Anime;Saved</diva></div>'
@@ -42,13 +49,13 @@ while api.groups.getMembers(group_id=group,sort='id_asc',fields='',offset=off)['
 			continue
 		for p in range(len(tmp)):
 			albums+=tmp[p]['title']+':'+str(tmp[p]['size'])+';'
-		temp=re.findall(r'Сохранённые фотографии [^0-9]*\:[0-9]*',albums)
+		temp=re.findall(r'[^0-9]*\'s saved photos\:[0-9]*',albums)
 		if temp!=[]:
 			try:
 				outer+=div.replace('#link','https://vk.com/id'+str(m[x])).replace('#albcount',albums).replace('@##4',temp[0].split(':')[1]).replace('@link','https://vk.com/album'+str(m[x])+'_000').replace('#avatar',avatars[x]['photo_50'])+'\n'
 			except IndexError:
 				continue
-			print(off-1000+x)
+	m.clear()
 	avatars.clear()
 	time.sleep(1)
 s=r'<!DOCTYPE html><html><head>	<title>Page of users</title></head><body>'
