@@ -24,9 +24,9 @@ token=input('VK token:')
 group=int(input('Group ID:'))
 f=open(input('File name:'),'w')
 
-# token='tokenplace'
-# group=idplace
-# f=open('filenameplace','w')
+# token=''
+# group=
+# f=open('','w')
 
 countof=int(input('Count of users for check [[mod 1000 or 100=0]]:'))
 sortof=input('id_asc/id_desc/\'\' ,def='': ')
@@ -60,7 +60,7 @@ while api.groups.getMembers(group_id=group,sort=sortof,fields='',count=step,offs
 		temp=re.findall(r'[^0-9]*\'s saved photos\:[0-9]*',albums)
 		if temp!=[]:
 			try:
-				outer+=div.replace('#link','https://vk.com/id'+str(m[x])).replace('#albcount',albums).replace('@##4',temp[0].split(':')[1]).replace('@link','https://vk.com/album'+str(m[x])+'_000').replace('#avatar',avatars[x]['photo_50'])+'\n'
+				outer+=div.replace('#link','https://vk.com/id'+str(m[x])).replace('#albcount',albums).replace('@##4','____'[:-len(str(temp[0].split(':')[1]))]+temp[0].split(':')[1]).replace('@link','https://vk.com/album'+str(m[x])+'_000').replace('#avatar',avatars[x]['photo_50']).replace('@##2','_____'[:-len(str(len(tmp)))]+str(len(tmp)-2))+'\n'
 			except IndexError:
 				continue
 	m.clear()
